@@ -1,0 +1,2805 @@
+Binary search
+ 
+import java.io.*;
+ 
+class BinarySearch {
+   
+    // Returns index of x if it is present in arr[].
+    int binarySearch(int arr[], int x)
+    {
+        int l = 0, r = arr.length - 1;
+        while (l <= r) {
+            int m = l + (r - l) / 2;
+ 
+            // Check if x is present at mid
+            if (arr[m] == x)
+                return m;
+ 
+            // If x greater, ignore left half
+            if (arr[m] < x)
+                l = m + 1;
+ 
+            // If x is smaller, ignore right half
+            else
+                r = m - 1;
+        }
+ 
+        // If we reach here, then element was
+        // not present
+        return -1;
+    }
+ 
+    // Driver code
+    public static void main(String args[])
+    {
+        BinarySearch ob = new BinarySearch();
+        int arr[] = { 2, 3, 4, 10, 40 };
+        int n = arr.length;
+        int x = 10;
+        int result = ob.binarySearch(arr, x);
+        if (result == -1)
+            System.out.println(
+                "Element is not present in array");
+        else
+            System.out.println("Element is present at "
+                               + "index " + result);
+    }
+}
+Minmax
+import java.io.*;
+import java.util.*;
+ 
+// Java program of above implementation
+public class GFG {
+/* Class Pair is used to return two values from getMinMax() */
+    static class Pair {
+ 
+        int min;
+        int max;
+    }
+ 
+    static Pair getMinMax(int arr[], int n) {
+        Pair minmax = new  Pair();
+        int i;
+ 
+        /*If there is only one element then return it as min and max both*/
+        if (n == 1) {
+            minmax.max = arr[0];
+            minmax.min = arr[0];
+            return minmax;
+        }
+ 
+        /* If there are more than one elements, then initialize min
+    and max*/
+        if (arr[0] > arr[1]) {
+            minmax.max = arr[0];
+            minmax.min = arr[1];
+        } else {
+            minmax.max = arr[1];
+            minmax.min = arr[0];
+        }
+ 
+        for (i = 2; i < n; i++) {
+            if (arr[i] > minmax.max) {
+                minmax.max = arr[i];
+            } else if (arr[i] < minmax.min) {
+                minmax.min = arr[i];
+            }
+        }
+ 
+        return minmax;
+    }
+ 
+    /* Driver program to test above function */
+    public static void main(String args[]) {
+        int arr[] = {1000, 11, 445, 1, 330, 3000};
+        int arr_size = 6;
+        Pair minmax = getMinMax(arr, arr_size);
+        System.out.printf("\nMinimum element is %d", minmax.min);
+        System.out.printf("\nMaximum element is %d", minmax.max);
+ 
+    }
+ 
+} 
+//iterative method
+import java.io.*;
+import java.util.*;
+ 
+class Pair {
+    public int min;
+    public int max;
+}
+ 
+class Main {
+    static Pair getMinMax(int arr[], int n) {
+        Pair minmax = new Pair();
+        Arrays.sort(arr);
+        minmax.min = arr[0];
+        minmax.max = arr[n - 1];
+        return minmax;
+    }
+ 
+    public static void main(String[] args) {
+        int arr[] = { 1000, 11, 445, 1, 330, 3000 };
+        int arr_size = arr.length;
+        Pair minmax = getMinMax(arr, arr_size);
+        System.out.println("Minimum element is " + minmax.min);
+        System.out.println("Maximum element is " + minmax.max);
+    }
+}
+
+
+
+// Java program for Merge Sort
+import java.io.*;
+class MergeSort {
+	void merge(int arr[], int l, int m, int r)
+	{
+		int n1 = m - l + 1;
+		int n2 = r - m;
+		int L[] = new int[n1];
+		int R[] = new int[n2];
+		for (int i = 0; i < n1; ++i)
+			L[i] = arr[l + i];
+		for (int j = 0; j < n2; ++j)
+			R[j] = arr[m + 1 + j];
+		int i = 0, j = 0;
+		int k = l;
+		while (i < n1 && j < n2) {
+			if (L[i] <= R[j]) {
+				arr[k] = L[i];
+				i++;
+			}
+			else {
+				arr[k] = R[j];
+				j++;
+			}
+			k++;
+		}
+		while (i < n1) {
+			arr[k] = L[i];
+			i++;
+			k++;
+		}
+		while (j < n2) {
+			arr[k] = R[j];
+			j++;
+			k++;
+		}
+	}
+	void sort(int arr[], int l, int r)
+	{
+		if (l < r) {
+			int m = l + (r - l) / 2;
+			sort(arr, l, m);
+			sort(arr, m + 1, r);
+			merge(arr, l, m, r);
+		}
+	}
+	static void printArray(int arr[])
+	{
+		int n = arr.length;
+		for (int i = 0; i < n; ++i)
+			System.out.print(arr[i] + " ");
+		System.out.println();
+	}
+
+	// Driver code
+	public static void main(String args[])
+	{
+		int arr[] = { 12, 11, 13, 5, 6, 7 };
+		System.out.println("Given array is");
+		printArray(arr);
+		MergeSort ob = new MergeSort();
+		ob.sort(arr, 0, arr.length - 1);
+
+		System.out.println("\nSorted array is");
+		printArray(arr);
+	}
+}
+--------------------------------------------------------------------------------------------------
+
+// Java implementation of QuickSort
+import java.io.*;
+
+class GFG {
+
+    // A utility function to swap two elements
+    static void swap(int[] arr, int i, int j)
+    {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    static int partition(int[] arr, int low, int high)
+    {
+        int pivot = arr[high];
+        int i = (low - 1);
+
+        for (int j = low; j <= high - 1; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                swap(arr, i, j);
+            }
+        }
+        swap(arr, i + 1, high);
+        return (i + 1);
+    }
+
+    static void quickSort(int[] arr, int low, int high)
+    {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+    public static void printArr(int[] arr)
+    {
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
+        }
+    }
+
+    // Driver Code
+    public static void main(String[] args)
+    {
+        int[] arr = { 10, 7, 8, 9, 1, 5 };
+        int N = arr.length;
+
+        // Function call
+        quickSort(arr, 0, N - 1);
+        System.out.println("Sorted array:");
+        printArr(arr);
+    }
+}
+
+stack 
+public class StackAsLinkedList {
+    StackNode root;
+    static class StackNode {
+        int data;
+        StackNode next;
+        StackNode(int data) {
+ this.data = data; }
+    }
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+
+
+
+
+class Stack {
+    static final int MAX = 1000;
+    int top;
+    int a[] = new int[MAX];
+    boolean isEmpty()
+    {
+        return (top < 0);
+    }
+    Stack()
+    {
+        top = -1;
+    }
+  
+    boolean push(int x)
+    {
+        if (top >= (MAX - 1)) {
+            System.out.println("Stack Overflow");
+            return false;
+        }
+        else {
+            a[++top] = x;
+            System.out.println(x + " pushed into stack");
+            return true;
+        }
+    }
+  
+    int pop()
+    {
+        if (top < 0) {
+            System.out.println("Stack Underflow");
+            return 0;
+        }
+        else {
+            int x = a[top--];
+            return x;
+        }
+    }
+  
+    int peek()
+    {
+        if (top < 0) {
+            System.out.println("Stack Underflow");
+            return 0;
+        }
+        else {
+            int x = a[top];
+            return x;
+        }
+    }
+     
+    void print(){
+    for(int i = top;i>-1;i--){
+      System.out.print(" "+ a[i]);
+    }
+  }
+}
+  
+// Driver code
+class Main {
+    public static void main(String args[])
+    {
+        Stack s = new Stack();
+        s.push(10);
+        s.push(20);
+        s.push(30);
+        System.out.println(s.pop() + " Popped from stack");
+        System.out.println("Top element is :" + s.peek());
+        System.out.print("Elements present in stack :");
+        s.print();
+    }
+}
+// queue 
+/ Java program for linked-list implementation of queue
+ 
+// A linked list (LL) node to store a queue entry
+class QNode {
+    int key;
+    QNode next;
+ 
+    // constructor to create a new linked list node
+    public QNode(int key)
+    {
+        this.key = key;
+        this.next = null;
+    }
+}
+ 
+// A class to represent a queue
+// The queue, front stores the front node of LL and rear
+// stores the last node of LL
+class Queue {
+    QNode front, rear;
+ 
+    public Queue() { this.front = this.rear = null; }
+ 
+    // Method to add an key to the queue.
+    void enqueue(int key)
+    {
+ 
+        // Create a new LL node
+        QNode temp = new QNode(key);
+ 
+        // If queue is empty, then new node is front and
+        // rear both
+        if (this.rear == null) {
+            this.front = this.rear = temp;
+            return;
+        }
+ 
+        // Add the new node at the end of queue and change
+        // rear
+        this.rear.next = temp;
+        this.rear = temp;
+    }
+ 
+    // Method to remove an key from queue.
+    void dequeue()
+    {
+        // If queue is empty, return NULL.
+        if (this.front == null)
+            return;
+ 
+        // Store previous front and move front one node
+        // ahead
+        QNode temp = this.front;
+        this.front = this.front.next;
+ 
+        // If front becomes NULL, then change rear also as
+        // NULL
+        if (this.front == null)
+            this.rear = null;
+    }
+}
+ 
+// Driver code
+public class Test {
+    public static void main(String[] args)
+    {
+        Queue q = new Queue();
+        q.enqueue(10);
+        q.enqueue(20);
+        q.dequeue();
+        q.dequeue();
+        q.enqueue(30);
+        q.enqueue(40);
+        q.enqueue(50);
+        q.dequeue();
+        System.out.println("Queue Front : " + ((q.front != null) ? (q.front).key : -1));
+        System.out.println("Queue Rear : " + ((q.rear != null) ? (q.rear).key : -1));
+    }
+}
+// This code is contributed by Gaurav Miglani
+ 
+JOB SEQUENCING
+
+
+// Java code for the above approach
+
+import java.util.*;
+
+class Job {
+
+	// Each job has a unique-id,profit and deadline
+	char id;
+	int deadline, profit;
+
+	// Constructors
+	public Job() {}
+
+	public Job(char id, int deadline, int profit)
+	{
+		this.id = id;
+		this.deadline = deadline;
+		this.profit = profit;
+	}
+
+	// Function to schedule the jobs take 2 arguments
+	// arraylist and no of jobs to schedule
+	void printJobScheduling(ArrayList<Job> arr, int t)
+	{
+		// Length of array
+		int n = arr.size();
+	
+		// Sort all jobs according to decreasing order of
+		// profit
+		Collections.sort(arr,
+						(a, b) -> b.profit - a.profit);
+
+		// To keep track of free time slots
+		boolean result[] = new boolean[t];
+
+		// To store result (Sequence of jobs)
+		char job[] = new char[t];
+
+		// Iterate through all given jobs
+		for (int i = 0; i < n; i++) {
+			// Find a free slot for this job (Note that we
+			// start from the last possible slot)
+			for (int j
+				= Math.min(t - 1, arr.get(i).deadline - 1);
+				j >= 0; j--) {
+				// Free slot found
+				if (result[j] == false) {
+					result[j] = true;
+					job[j] = arr.get(i).id;
+					break;
+				}
+			}
+		}
+
+		// Print the sequence
+		for (char jb : job)
+			System.out.print(jb + " ");
+		System.out.println();
+	}
+
+	// Driver's code
+	public static void main(String args[])
+	{
+		ArrayList<Job> arr = new ArrayList<Job>();
+		arr.add(new Job('a', 2, 100));
+		arr.add(new Job('b', 1, 19));
+		arr.add(new Job('c', 2, 27));
+		arr.add(new Job('d', 1, 25));
+		arr.add(new Job('e', 3, 15));
+
+		System.out.println(
+			"Following is maximum profit sequence of jobs");
+
+		Job job = new Job();
+
+		// Function call
+		job.printJobScheduling(arr, 3);
+	}
+}
+
+
+
+Dijkstras
+import java.io.*;
+import java.lang.*;
+import java.util.*;
+ 
+class ShortestPath {
+  
+    static final int V = 9;
+    int minDistance(int dist[], Boolean sptSet[])
+    {
+        
+        int min = Integer.MAX_VALUE, min_index = -1;
+ 
+        for (int v = 0; v < V; v++)
+            if (sptSet[v] == false && dist[v] <= min) {
+                min = dist[v];
+                min_index = v;
+            }
+ 
+        return min_index;
+    }
+ 
+    void printSolution(int dist[])
+    {
+        System.out.println(
+            "Vertex \t\t Distance from Source");
+        for (int i = 0; i < V; i++)
+            System.out.println(i + " \t\t " + dist[i]);
+    }
+ 
+    void dijkstra(int graph[][], int src)
+    {
+        int dist[] = new int[V]; 
+        Boolean sptSet[] = new Boolean[V];
+ 
+        for (int i = 0; i < V; i++) {
+            dist[i] = Integer.MAX_VALUE;
+            sptSet[i] = false;
+        }
+        dist[src] = 0;
+ 
+        for (int count = 0; count < V - 1; count++) {
+            
+            int u = minDistance(dist, sptSet);
+ 
+            sptSet[u] = true;
+            for (int v = 0; v < V; v++)
+ 
+                if (!sptSet[v] && graph[u][v] != 0
+                    && dist[u] != Integer.MAX_VALUE
+                    && dist[u] + graph[u][v] < dist[v])
+                    dist[v] = dist[u] + graph[u][v];
+        }
+        printSolution(dist);
+    }
+ 
+    // Driver's code
+    public static void main(String[] args)
+    {
+        /* Let us create the example graph discussed above
+         */
+        int graph[][]
+            = new int[][] { { 0, 4, 0, 0, 0, 0, 0, 8, 0 },
+                            { 4, 0, 8, 0, 0, 0, 0, 11, 0 },
+                            { 0, 8, 0, 7, 0, 4, 0, 0, 2 },
+                            { 0, 0, 7, 0, 9, 14, 0, 0, 0 },
+                            { 0, 0, 0, 9, 0, 10, 0, 0, 0 },
+                            { 0, 0, 4, 14, 10, 0, 2, 0, 0 },
+                            { 0, 0, 0, 0, 0, 2, 0, 1, 6 },
+                            { 8, 11, 0, 0, 0, 0, 1, 0, 7 },
+                            { 0, 0, 2, 0, 0, 0, 6, 7, 0 } };
+        ShortestPath t = new ShortestPath();
+ 
+        // Function call
+        t.dijkstra(graph, 0);
+    }
+}
+
+
+
+
+0/1 knapsack
+class Knapsack {
+ 
+    static int max(int a, int b) { return (a > b) ? a : b; }
+ 
+    
+    static int knapSack(int W, int wt[], int val[], int n)
+    {
+        if (n == 0 || W == 0)
+            return 0;
+ 
+        if (wt[n - 1] > W)
+            return knapSack(W, wt, val, n - 1);
+ 
+        else
+            return max(val[n - 1]
+                           + knapSack(W - wt[n - 1], wt,
+                                      val, n - 1),
+                       knapSack(W, wt, val, n - 1));
+    }
+ 
+    // Driver code
+    public static void main(String args[])
+    {
+        int profit[] = new int[] { 60, 100, 120 };
+        int weight[] = new int[] { 10, 20, 30 };
+        int W = 50;
+        int n = profit.length;
+        System.out.println(knapSack(W, weight, profit, n));
+    }
+}
+
+
+
+
+
+
+BFS
+import java.io.*;
+import java.util.*;
+ 
+// This class represents a directed graph using adjacency
+// list representation
+class Graph {
+ 
+    // No. of vertices
+    private int V;
+ 
+    // Adjacency Lists
+    private LinkedList<Integer> adj[];
+ 
+    // Constructor
+    Graph(int v)
+    {
+        V = v;
+        adj = new LinkedList[v];
+        for (int i = 0; i < v; ++i)
+            adj[i] = new LinkedList();
+    }
+ 
+    // Function to add an edge into the graph
+    void addEdge(int v, int w) { adj[v].add(w); }
+ 
+    // prints BFS traversal from a given source s
+    void BFS(int s)
+    {
+        // Mark all the vertices as not visited(By default
+        // set as false)
+        boolean visited[] = new boolean[V];
+ 
+        // Create a queue for BFS
+        LinkedList<Integer> queue
+            = new LinkedList<Integer>();
+ 
+        // Mark the current node as visited and enqueue it
+        visited[s] = true;
+        queue.add(s);
+ 
+        while (queue.size() != 0) {
+ 
+            // Dequeue a vertex from queue and print it
+            s = queue.poll();
+            System.out.print(s + " ");
+ 
+            // Get all adjacent vertices of the dequeued
+            // vertex s.
+            // If an adjacent has not been visited,
+            // then mark it visited and enqueue it
+            Iterator<Integer> i = adj[s].listIterator();
+            while (i.hasNext()) {
+                int n = i.next();
+                if (!visited[n]) {
+                    visited[n] = true;
+                    queue.add(n);
+                }
+            }
+        }
+    }
+ 
+    // Driver code
+    public static void main(String args[])
+    {
+        Graph g = new Graph(4);
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
+ 
+        System.out.println(
+            "Following is Breadth First Traversal "
+            + "(starting from vertex 2)");
+ 
+        g.BFS(2);
+    }
+}
+
+
+
+
+
+DFS
+// Java program to print DFS traversal
+// from a given graph
+import java.io.*;
+import java.util.*;
+ 
+// This class represents a
+// directed graph using adjacency
+// list representation
+class Graph {
+    private int V;
+ 
+    // Array  of lists for
+    // Adjacency List Representation
+    private LinkedList<Integer> adj[];
+ 
+    // Constructor
+    @SuppressWarnings("unchecked") Graph(int v)
+    {
+        V = v;
+        adj = new LinkedList[v];
+        for (int i = 0; i < v; ++i)
+            adj[i] = new LinkedList();
+    }
+ 
+    // Function to add an edge into the graph
+    void addEdge(int v, int w)
+    {
+        // Add w to v's list.
+        adj[v].add(w);
+    }
+ 
+    // A function used by DFS
+    void DFSUtil(int v, boolean visited[])
+    {
+        // Mark the current node as visited and print it
+        visited[v] = true;
+        System.out.print(v + " ");
+ 
+        // Recur for all the vertices adjacent to this
+        // vertex
+        Iterator<Integer> i = adj[v].listIterator();
+        while (i.hasNext()) {
+            int n = i.next();
+            if (!visited[n])
+                DFSUtil(n, visited);
+        }
+    }
+ 
+    // The function to do DFS traversal.
+    // It uses recursive DFSUtil()
+    void DFS(int v)
+    {
+        // Mark all the vertices as
+        // not visited(set as
+        // false by default in java)
+        boolean visited[] = new boolean[V];
+ 
+        // Call the recursive helper
+        // function to print DFS
+        // traversal
+        DFSUtil(v, visited);
+    }
+ 
+    // Driver Code
+    public static void main(String args[])
+    {
+        Graph g = new Graph(4);
+ 
+        g.addEdge(0, 1);
+        g.addEdge(0, 2);
+        g.addEdge(1, 2);
+        g.addEdge(2, 0);
+        g.addEdge(2, 3);
+        g.addEdge(3, 3);
+ 
+        System.out.println(
+            "Following is Depth First Traversal "
+            + "(starting from vertex 2)");
+ 
+        // Function call
+        g.DFS(2);
+    }
+}
+
+
+OBST
+/ A naive recursive implementation of optimal binary
+// search tree problem
+public class GFG
+{
+    // A recursive function to calculate cost of
+        // optimal binary search tree
+    static int optCost(int freq[], int i, int j)
+    {
+       // Base cases
+       if (j < i)      // no elements in this subarray
+         return 0;
+       if (j == i)     // one element in this subarray
+         return freq[i];
+      
+       // Get sum of freq[i], freq[i+1], ... freq[j]
+       int fsum = sum(freq, i, j);
+      
+       // Initialize minimum value
+       int min = Integer.MAX_VALUE;
+      
+       // One by one consider all elements as root and
+           // recursively find cost of the BST, compare the
+           // cost with min and update min if needed
+       for (int r = i; r <= j; ++r)
+       {
+           int cost = optCost(freq, i, r-1) +
+                          optCost(freq, r+1, j);
+           if (cost < min)
+              min = cost;
+       }
+      
+       // Return minimum value
+       return min + fsum;
+    }
+     
+    // The main function that calculates minimum cost of
+        // a Binary Search Tree. It mainly uses optCost() to
+        // find the optimal cost.
+    static int optimalSearchTree(int keys[], int freq[], int n)
+    {
+         // Here array keys[] is assumed to be sorted in
+             // increasing order. If keys[] is not sorted, then
+             // add code to sort keys, and rearrange freq[]
+             // accordingly.
+         return optCost(freq, 0, n-1);
+    }
+     
+    // A utility function to get sum of array elements
+        // freq[i] to freq[j]
+    static int sum(int freq[], int i, int j)
+    {
+        int s = 0;
+        for (int k = i; k <=j; k++)
+           s += freq[k];
+        return s;
+    }
+     
+    // Driver code
+    public static void main(String[] args) {
+        int keys[] = {10, 12, 20};
+        int freq[] = {34, 8, 50};
+        int n = keys.length;
+        System.out.println("Cost of Optimal BST is " +
+                         optimalSearchTree(keys, freq, n));
+    }
+}
+
+CONNECTED COMPONENTS// Java program to print connected components in
+// an undirected graph
+import java.util.ArrayList;
+class Graph {
+    // A user define class to represent a graph.
+    // A graph is an array of adjacency lists.
+    // Size of array will be V (number of vertices
+    // in graph)
+    int V;
+    ArrayList<ArrayList<Integer> > adjListArray;
+ 
+    // constructor
+    Graph(int V)
+    {
+        this.V = V;
+        // define the size of array as
+        // number of vertices
+        adjListArray = new ArrayList<>();
+ 
+        // Create a new list for each vertex
+        // such that adjacent nodes can be stored
+ 
+        for (int i = 0; i < V; i++) {
+            adjListArray.add(i, new ArrayList<>());
+        }
+    }
+ 
+    // Adds an edge to an undirected graph
+    void addEdge(int src, int dest)
+    {
+        // Add an edge from src to dest.
+        adjListArray.get(src).add(dest);
+ 
+        // Since graph is undirected, add an edge from dest
+        // to src also
+        adjListArray.get(dest).add(src);
+    }
+ 
+    void DFSUtil(int v, boolean[] visited)
+    {
+        // Mark the current node as visited and print it
+        visited[v] = true;
+        System.out.print(v + " ");
+        // Recur for all the vertices
+        // adjacent to this vertex
+        for (int x : adjListArray.get(v)) {
+            if (!visited[x])
+                DFSUtil(x, visited);
+        }
+    }
+    void connectedComponents()
+    {
+        // Mark all the vertices as not visited
+        boolean[] visited = new boolean[V];
+        for (int v = 0; v < V; ++v) {
+            if (!visited[v]) {
+                // print all reachable vertices
+                // from v
+                DFSUtil(v, visited);
+                System.out.println();
+            }
+        }
+    }
+ 
+    // Driver code
+    public static void main(String[] args)
+    {
+        // Create a graph given in the above diagram
+        Graph g = new Graph(5);
+ 
+        g.addEdge(1, 0);
+        g.addEdge(2, 1);
+        g.addEdge(3, 4);
+        System.out.println(
+            "Following are connected components");
+        g.connectedComponents();
+    }
+}
+ARTICULATION POINT
+// A Java program to find articulation
+// points in an undirected graph
+import java.util.*;
+ 
+class Graph {
+ 
+    static int time;
+ 
+    static void addEdge(ArrayList<ArrayList<Integer> > adj, int u, int v)
+    {
+        adj.get(u).add(v);
+        adj.get(v).add(u);
+    }
+ 
+    static void APUtil(ArrayList<ArrayList<Integer> > adj, int u,
+                       boolean visited[], int disc[], int low[],
+                       int parent, boolean isAP[])
+    {
+        // Count of children in DFS Tree
+        int children = 0;
+ 
+        // Mark the current node as visited
+        visited[u] = true;
+ 
+        // Initialize discovery time and low value
+        disc[u] = low[u] = ++time;
+ 
+        // Go through all vertices adjacent to this
+        for (Integer v : adj.get(u)) {
+            // If v is not visited yet, then make it a child of u
+            // in DFS tree and recur for it
+            if (!visited[v]) {
+                children++;
+                APUtil(adj, v, visited, disc, low, u, isAP);
+ 
+                // Check if the subtree rooted with v has
+                // a connection to one of the ancestors of u
+                low[u] = Math.min(low[u], low[v]);
+ 
+                // If u is not root and low value of one of
+                // its child is more than discovery value of u.
+                if (parent != -1 && low[v] >= disc[u])
+                    isAP[u] = true;
+            }
+ 
+            // Update low value of u for parent function calls.
+            else if (v != parent)
+                low[u] = Math.min(low[u], disc[v]);
+        }
+ 
+        // If u is root of DFS tree and has two or more children.
+        if (parent == -1 && children > 1)
+            isAP[u] = true;
+    }
+ 
+    static void AP(ArrayList<ArrayList<Integer> > adj, int V)
+    {
+        boolean[] visited = new boolean[V];
+        int[] disc = new int[V];
+        int[] low = new int[V];
+        boolean[] isAP = new boolean[V];
+        int time = 0, par = -1;
+ 
+        // Adding this loop so that the
+        // code works even if we are given
+        // disconnected graph
+        for (int u = 0; u < V; u++)
+            if (visited[u] == false)
+                APUtil(adj, u, visited, disc, low, par, isAP);
+ 
+        for (int u = 0; u < V; u++)
+            if (isAP[u] == true)
+                System.out.print(u + " ");
+        System.out.println();
+    }
+ 
+    public static void main(String[] args)
+    {
+ 
+        // Creating first example graph
+        int V = 5;
+        ArrayList<ArrayList<Integer> > adj1 =
+                         new ArrayList<ArrayList<Integer> >(V);
+        for (int i = 0; i < V; i++)
+            adj1.add(new ArrayList<Integer>());
+        addEdge(adj1, 1, 0);
+        addEdge(adj1, 0, 2);
+        addEdge(adj1, 2, 1);
+        addEdge(adj1, 0, 3);
+        addEdge(adj1, 3, 4);
+        System.out.println("Articulation points in first graph");
+        AP(adj1, V);
+ 
+        // Creating second example graph
+        V = 4;
+        ArrayList<ArrayList<Integer> > adj2 =
+                         new ArrayList<ArrayList<Integer> >(V);
+        for (int i = 0; i < V; i++)
+            adj2.add(new ArrayList<Integer>());
+ 
+        addEdge(adj2, 0, 1);
+        addEdge(adj2, 1, 2);
+        addEdge(adj2, 2, 3);
+ 
+        System.out.println("Articulation points in second graph");
+        AP(adj2, V);
+ 
+        // Creating third example graph
+        V = 7;
+        ArrayList<ArrayList<Integer> > adj3 =
+                            new ArrayList<ArrayList<Integer> >(V);
+        for (int i = 0; i < V; i++)
+            adj3.add(new ArrayList<Integer>());
+ 
+        addEdge(adj3, 0, 1);
+        addEdge(adj3, 1, 2);
+        addEdge(adj3, 2, 0);
+        addEdge(adj3, 1, 3);
+        addEdge(adj3, 1, 4);
+        addEdge(adj3, 1, 6);
+        addEdge(adj3, 3, 5);
+        addEdge(adj3, 4, 5);
+ 
+        System.out.println("Articulation points in third graph");
+ 
+        AP(adj3, V);
+    }
+}
+
+
+// Java program for linked-list implementation of queue
+ 
+// A linked list (LL) node to store a queue entry
+class QNode {
+    int key;
+    QNode next;
+ 
+    // constructor to create a new linked list node
+    public QNode(int key)
+    {
+        this.key = key;
+        this.next = null;
+    }
+}
+ 
+// A class to represent a queue
+// The queue, front stores the front node of LL and rear
+// stores the last node of LL
+class Queue {
+    QNode front, rear;
+ 
+    public Queue() { this.front = this.rear = null; }
+ 
+    // Method to add an key to the queue.
+    void enqueue(int key)
+    {
+ 
+        // Create a new LL node
+        QNode temp = new QNode(key);
+ 
+        // If queue is empty, then new node is front and
+        // rear both
+        if (this.rear == null) {
+            this.front = this.rear = temp;
+            return;
+        }
+ 
+        // Add the new node at the end of queue and change
+        // rear
+        this.rear.next = temp;
+        this.rear = temp;
+    }
+ 
+    // Method to remove an key from queue.
+    void dequeue()
+    {
+        // If queue is empty, return NULL.
+        if (this.front == null)
+            return;
+ 
+        // Store previous front and move front one node
+        // ahead
+        QNode temp = this.front;
+        this.front = this.front.next;
+ 
+        // If front becomes NULL, then change rear also as
+        // NULL
+        if (this.front == null)
+            this.rear = null;
+    }
+}
+ 
+// Driver code
+public class Test {
+    public static void main(String[] args)
+    {
+        Queue q = new Queue();
+        q.enqueue(10);
+        q.enqueue(20);
+        q.dequeue();
+        q.dequeue();
+        q.enqueue(30);
+        q.enqueue(40);
+        q.enqueue(50);
+        q.dequeue();
+        System.out.println("Queue Front : " + ((q.front != null) ? (q.front).key : -1));
+        System.out.println("Queue Rear : " + ((q.rear != null) ? (q.rear).key : -1));
+  
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+/ Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}--------------------------------------------------------------------------------------------
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+    }
+}
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element 
+// Java Code for Linked List Implementation
+  
+public class StackAsLinkedList {
+  
+    StackNode root;
+  
+    static class StackNode {
+        int data;
+        StackNode next;
+  
+        StackNode(int data) { this.data = data; }
+    }
+  
+    public boolean isEmpty()
+    {
+        if (root == null) {
+            return true;
+        }
+        else
+            return false;
+    }
+  
+    public void push(int data)
+    {
+        StackNode newNode = new StackNode(data);
+  
+        if (root == null) {
+            root = newNode;
+        }
+        else {
+            StackNode temp = root;
+            root = newNode;
+            newNode.next = temp;
+        }
+        System.out.println(data + " pushed to stack");
+    }
+  
+    public int pop()
+    {
+        int popped = Integer.MIN_VALUE;
+        if (root == null) {
+            System.out.println("Stack is Empty");
+        }
+        else {
+            popped = root.data;
+            root = root.next;
+        }
+        return popped;
+    }
+  
+    public int peek()
+    {
+        if (root == null) {
+            System.out.println("Stack is empty");
+            return Integer.MIN_VALUE;
+        }
+        else {
+            return root.data;
+        }
+    }
+  
+    // Driver code
+    public static void main(String[] args)
+    {
+  
+        StackAsLinkedList sll = new StackAsLinkedList();
+  
+        sll.push(10);
+        sll.push(20);
+        sll.push(30);
+  
+        System.out.println(sll.pop()
+                           + " popped from stack");
+  
+        System.out.println("Top element is " + sll.peek());
+   
